@@ -1,0 +1,16 @@
+pkgtype(kind: "library")
+
+options(
+  "native-stub": [ 
+    "native/memory.c",
+    "native/mem.c",
+    "native/ptr.c",
+    "native/errno.c",
+    "native/file.c",
+    "native/mmap.c"
+  ],
+)
+
+import {
+  "moonbitlang/core/encoding/utf8"
+}
