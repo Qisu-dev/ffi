@@ -3,8 +3,8 @@
 #include <string.h>
 #include <errno.h>
 
-int  _moonbit_errno_get(void)      { return errno; }
-void _moonbit_errno_set(int value) { errno = value; }
+int  _moonbit_get_errno(void)      { return errno; }
+void _moonbit_set_errno(int value) { errno = value; }
 const char* _moonbit_strerror(int e) { return strerror(e); }
 
 #define DEFINE_ERRNO(name) \

@@ -110,5 +110,3 @@ char *_moonbit_bytes_to_cstr(const uint8_t *data, size_t len) {
 char *_moonbit_ptr_to_cstr(const void *data, size_t len) {
   return _moonbit_bytes_to_cstr(data, len);
 }
-
-void _moonbit_free_cstr(char *s) { free(s); }

@@ -1,13 +1,18 @@
 pkgtype(kind: "library")
 
 options(
-  "native-stub": [ 
+  "native-stub": [
     "native/memory.c",
     "native/mem.c",
     "native/ptr.c",
+    "native/str.c",
     "native/errno.c",
     "native/file.c",
-    "native/mmap.c"
+    "native/mmap.c",
+    "native/process.c",
+    "native/env.c",
+    "native/console.c",
+    "native/stdio.c"
   ],
 )
 

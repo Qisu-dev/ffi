@@ -9,9 +9,9 @@ test "test errno" {
 }
 
 test "errno get/set" {
-  errno_set(42)
-  assert_eq(errno_get(), 42)
+  set_errno(42)
+  assert_eq(get_errno(), 42)
   
-  errno_set(0)
-  assert_eq(errno_get(), 0)
+  set_errno(0)
+  assert_eq(get_errno(), 0)
 }

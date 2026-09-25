@@ -54,17 +54,17 @@ int _moonbit_close_handle(void* h) {
     return CloseHandle((HANDLE)h) ? 0 : -1;
 }
 
-int _moonbit_page_readonly(void)  { return PAGE_READONLY; }
-int _moonbit_page_readwrite(void) { return PAGE_READWRITE; }
-int _moonbit_page_writecopy(void) { return PAGE_WRITECOPY; }
-int _moonbit_page_execute_read(void)    { return PAGE_EXECUTE_READ; }
-int _moonbit_page_execute_readwrite(void) { return PAGE_EXECUTE_READWRITE; }
-int _moonbit_page_execute_writecopy(void) { return PAGE_EXECUTE_WRITECOPY; }
+uint32_t _moonbit_page_readonly(void)  { return PAGE_READONLY; }
+uint32_t _moonbit_page_readwrite(void) { return PAGE_READWRITE; }
+uint32_t _moonbit_page_writecopy(void) { return PAGE_WRITECOPY; }
+uint32_t _moonbit_page_execute_read(void)    { return PAGE_EXECUTE_READ; }
+uint32_t _moonbit_page_execute_readwrite(void) { return PAGE_EXECUTE_READWRITE; }
+uint32_t _moonbit_page_execute_writecopy(void) { return PAGE_EXECUTE_WRITECOPY; }
 
-int _moonbit_file_map_read(void)  { return FILE_MAP_READ; }
-int _moonbit_file_map_write(void) { return FILE_MAP_WRITE; }
-int _moonbit_file_map_copy(void)  { return FILE_MAP_COPY; }
-int _moonbit_file_map_execute(void) { return FILE_MAP_EXECUTE; }
+uint32_t _moonbit_file_map_read(void)  { return FILE_MAP_READ; }
+uint32_t _moonbit_file_map_write(void) { return FILE_MAP_WRITE; }
+uint32_t _moonbit_file_map_copy(void)  { return FILE_MAP_COPY; }
+uint32_t _moonbit_file_map_execute(void) { return FILE_MAP_EXECUTE; }
 
 void* _moonbit_fd_to_handle(int fd) {
     intptr_t h = _get_osfhandle(fd);

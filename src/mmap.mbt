@@ -1,4 +1,4 @@
-////|
+///|
 /// 将文件或匿名内存映射到进程地址空间。
 /// 
 /// **参数：**
@@ -34,7 +34,7 @@
 /// - 映射后可用指针直接读写文件内容，无需 `read`/`write`。
 /// - 使用完毕必须调用 `munmap(addr, len)` 解除映射。
 /// - `map_shared()` 的写入会同步到文件，`map_private()` 的写入不会。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn mmap(
   addr : FFIPtr,
   len : SizeT,
@@ -46,49 +46,49 @@ pub extern "C" fn mmap(
 
 ///|
 /// 解除内存映射。成功返回 0，失败返回 -1。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn munmap(addr : FFIPtr, len : SizeT) -> Int = "_moonbit_munmap"
 
 ///|
 /// POSIX mmap 的失败返回值 MAP_FAILED，即 (void*)-1。
 /// 
 /// ⚠️ 这不是 NULL！判断 mmap 是否失败要用 `== map_failed()`，不能用 `is_null()`。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn map_failed() -> FFIPtr = "_moonbit_map_failed"
 
 ///|
 /// PROT_READ — 页面可读。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn prot_read() -> Int = "_moonbit_prot_read"
 
 ///|
 /// PROT_WRITE — 页面可写。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn prot_write() -> Int = "_moonbit_prot_write"
 
 ///|
 /// PROT_EXEC — 页面可执行。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn prot_exec() -> Int = "_moonbit_prot_exec"
 
 ///|
 /// PROT_NONE — 页面不可访问。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn prot_none() -> Int = "_moonbit_prot_none"
 
 ///|
 /// MAP_PRIVATE — 私有映射（写时复制）。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn map_private() -> Int = "_moonbit_map_private"
 
 ///|
 /// MAP_SHARED — 共享映射（写入影响原文件）。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn map_shared() -> Int = "_moonbit_map_shared"
 
 ///|
 /// MAP_ANONYMOUS — 匿名映射（不关联文件，fd 传 -1）。
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn map_anonymous() -> Int = "_moonbit_map_anonymous"
 
 ///|
@@ -115,7 +115,7 @@ pub extern "C" fn map_anonymous() -> Int = "_moonbit_map_anonymous"
 /// - 创建后的映射对象需要调用 `close_handle()` 释放。
 /// - 大小不是页对齐的倍数时，实际映射大小会向上取整到系统页大小。
 /// - `hFile` 的句柄在 `create_file_mapping` 之后可以被关闭（映射对象持有引用）。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn create_file_mapping(
   hFile : FFIPtr,
   protect : UInt,
@@ -127,7 +127,7 @@ pub extern "C" fn create_file_mapping(
 /// 将映射对象映射到当前进程地址空间。
 /// 
 /// 成功返回映射地址，失败返回 NULL。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn map_view_of_file(
   hMapping : FFIPtr,
   access : UInt,
@@ -138,79 +138,79 @@ pub extern "C" fn map_view_of_file(
 
 ///|
 /// 解除视图映射。成功返回 0，失败返回 -1。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn unmap_view_of_file(addr : FFIPtr) -> Int = "_moonbit_unmap_view_of_file"
 
 ///|
 /// 关闭 HANDLE。成功返回 0，失败返回 -1。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn close_handle(h : FFIPtr) -> Int = "_moonbit_close_handle"
 
 ///|
 /// PAGE_READONLY — 只读页面。
-#cfg(target="windows")
-pub extern "C" fn page_readonly() -> Int = "_moonbit_page_readonly"
+#cfg(platform="windows")
+pub extern "C" fn page_readonly() -> UInt = "_moonbit_page_readonly"
 
 ///|
 /// PAGE_READWRITE — 读写页面。
-#cfg(target="windows")
-pub extern "C" fn page_readwrite() -> Int = "_moonbit_page_readwrite"
+#cfg(platform="windows")
+pub extern "C" fn page_readwrite() -> UInt = "_moonbit_page_readwrite"
 
 ///|
 /// PAGE_WRITECOPY — 写时复制页面。
-#cfg(target="windows")
-pub extern "C" fn page_writecopy() -> Int = "_moonbit_page_writecopy"
+#cfg(platform="windows")
+pub extern "C" fn page_writecopy() -> UInt = "_moonbit_page_writecopy"
 
 ///|
 /// PAGE_EXECUTE_READ — 可执行只读页面。
-#cfg(target="windows")
-pub extern "C" fn page_execute_read() -> Int = "_moonbit_page_execute_read"
+#cfg(platform="windows")
+pub extern "C" fn page_execute_read() -> UInt = "_moonbit_page_execute_read"
 
 ///|
 /// PAGE_EXECUTE_READWRITE — 可执行读写页面。
-#cfg(target="windows")
-pub extern "C" fn page_execute_readwrite() -> Int = "_moonbit_page_execute_readwrite"
+#cfg(platform="windows")
+pub extern "C" fn page_execute_readwrite() -> UInt = "_moonbit_page_execute_readwrite"
 
 ///|
 /// PAGE_EXECUTE_WRITECOPY — 可执行写时复制页面。
-#cfg(target="windows")
-pub extern "C" fn page_execute_writecopy() -> Int = "_moonbit_page_execute_writecopy"
+#cfg(platform="windows")
+pub extern "C" fn page_execute_writecopy() -> UInt = "_moonbit_page_execute_writecopy"
 
 ///|
 /// FILE_MAP_READ — 视图可读。
-#cfg(target="windows")
-pub extern "C" fn file_map_read() -> Int = "_moonbit_file_map_read"
+#cfg(platform="windows")
+pub extern "C" fn file_map_read() -> UInt = "_moonbit_file_map_read"
 
 ///|
 /// FILE_MAP_WRITE — 视图可写。
-#cfg(target="windows")
-pub extern "C" fn file_map_write() -> Int = "_moonbit_file_map_write"
+#cfg(platform="windows")
+pub extern "C" fn file_map_write() -> UInt = "_moonbit_file_map_write"
 
 ///|
 /// FILE_MAP_COPY — 视图写时复制。
-#cfg(target="windows")
-pub extern "C" fn file_map_copy() -> Int = "_moonbit_file_map_copy"
+#cfg(platform="windows")
+pub extern "C" fn file_map_copy() -> UInt = "_moonbit_file_map_copy"
 
 ///|
 /// FILE_MAP_EXECUTE — 视图可执行。
-#cfg(target="windows")
-pub extern "C" fn file_map_execute() -> Int = "_moonbit_file_map_execute"
+#cfg(platform="windows")
+pub extern "C" fn file_map_execute() -> UInt = "_moonbit_file_map_execute"
 
 ///|
 /// fd → HANDLE 转换。失败返回 NULL。
 /// 
 /// ⚠️ 返回的 HANDLE 由 CRT 管理，不要用 `close_handle` 关闭它。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn fd_to_handle(fd : Int) -> FFIPtr = "_moonbit_fd_to_handle"
 
 ///|
 /// HANDLE → fd 转换。失败返回 -1。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn handle_to_fd(h : FFIPtr, flags : Int) -> Int = "_moonbit_handle_to_fd"
 
 ///|
 /// Windows 的 INVALID_HANDLE_VALUE，用于创建匿名内存映射。
 /// 
 /// ⚠️ 这不是 NULL！判断时要用 `== invalid_handle_value()`，不能用 `is_null()`。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn invalid_handle_value() -> FFIPtr = "_moonbit_invalid_handle_value"

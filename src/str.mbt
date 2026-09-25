@@ -96,7 +96,7 @@ pub extern "C" fn strtok(str : FFIPtr, delim : FFIPtr) -> FFIPtr = "_moonbit_str
 
 ///|
 /// POSIX 可重入分词（Linux/macOS）
-#cfg(not(target="windows"))
+#cfg(not(platform="windows"))
 pub extern "C" fn strtok_r(
   str : FFIPtr,
   delim : FFIPtr,
@@ -105,7 +105,7 @@ pub extern "C" fn strtok_r(
 
 ///|
 /// MSVC 可重入分词（Windows）。注意：参数非法时会崩溃。
-#cfg(target="windows")
+#cfg(platform="windows")
 pub extern "C" fn strtok_s(
   str : FFIPtr,
   delim : FFIPtr,
@@ -144,10 +144,7 @@ pub extern "C" fn bytes_to_cstr(data : Bytes, len : SizeT) -> FFIPtr = "_moonbit
 pub extern "C" fn ptr_to_cstr(data : FFIPtr, len : SizeT) -> FFIPtr = "_moonbit_ptr_to_cstr"
 
 ///|
-pub extern "C" fn free_cstr(s : FFIPtr) -> Unit = "_moonbit_free_cstr"
-
-///|
-/// 
+/// 注意: 用完后应当free cstr
 pub fn string_to_cstr(s : String) -> FFIPtr {
   let bytes = @utf8.encode(s)
   bytes_to_cstr(bytes, bytes.length().to_uint64())

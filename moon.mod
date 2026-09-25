@@ -1,10 +1,10 @@
 name = "Qisu-dev/ffi"
 
-version = "0.2.0-alpha"
+version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = ""
+repository = "https://github.com/Qisu-dev/ffi"
 
 license = "Apache-2.0"
 
