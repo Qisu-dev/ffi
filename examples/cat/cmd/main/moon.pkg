@@ -1,0 +1,7 @@
+import {
+  "Qisu-dev/ffi",
+  "moonbitlang/core/argparse",
+  "moonbitlang/core/env",
+}
+
+pkgtype(kind: "executable")
